@@ -18,6 +18,18 @@ class Album extends Model
         'status'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updating(function ($album) {
+            if ($album->status === 'longterm' && $album->getOriginal('status') === 'live') {
+                // Set the remote_id to null automatically
+                $album->remote_id = null;
+            }
+        });
+    }
+
     public function remote() {
         return $this->belongsTo(Remote::class);
     }

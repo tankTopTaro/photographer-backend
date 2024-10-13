@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //TODO: 
+        /**
+         *  Make the remote_id nullable and remove cascadeOnDelete 
+         *  to keep the album when the remote is de-associated with the album
+         */
         Schema::create('albums', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('remote_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('venue_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('remote_id')->nullable()->constrained();
+            $table->foreignId('venue_id')->constrained();
             $table->timestamp('date_add')->useCurrent();
             $table->timestamp('date_over')->nullable();
             $table->timestamp('date_upd')->nullable();
