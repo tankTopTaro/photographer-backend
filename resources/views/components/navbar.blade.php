@@ -9,6 +9,7 @@
             </div>
             <div class="flex gap-4">
               <button @click="activeTable = activeTable === 'create' ? null : 'create'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create Album & User</button>
+              <button @click="activeTable = activeTable === 'add-user-to-album' ? null : 'add-user-to-album'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add User to Album</button>
               <button @click="activeTable = activeTable === 'capture' ? null : 'capture'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create Captures</button>
             </div>
           </div>

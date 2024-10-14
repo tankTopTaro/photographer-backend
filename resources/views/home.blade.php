@@ -50,4 +50,7 @@
 @include('layouts.album-users-form')
 
 @include('layouts.captures-form')
+
+@include('layouts.add-user-to-album')
+
 @endsection

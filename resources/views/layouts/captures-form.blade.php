@@ -7,7 +7,7 @@
         <label for="userSelector" class="block text-sm font-medium text-gray-700 mt-4">Select User</label>
         <select id="userSelector" name="album_id" x-model="selectedUser" class="mt-1 block w-full p-2 border border-gray-300 rounded">
             <option value="">Select User</option>
-            @foreach ($liveUsers as $user)
+            @foreach ($albumOwners as $user)
                 <option value="{{ $user->album_id }}">{{ $user->name }}</option>
             @endforeach
         </select>

@@ -16,6 +16,7 @@ class AlbumAccessMail extends Mailable
     use Queueable, SerializesModels;
 
     public $albumUrl;
+    public $token;
 
     /**
      * Create a new message instance.
@@ -23,9 +24,10 @@ class AlbumAccessMail extends Mailable
      * @param string $albumUrl
      * @return void
      */
-    public function __construct($albumUrl, public User $user)
+    public function __construct($albumUrl, $token, public User $user)
     {
         $this->albumUrl = $albumUrl;
+        $this->token = $token;
     }
 
     /**
