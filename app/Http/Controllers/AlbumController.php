@@ -123,7 +123,6 @@ class AlbumController extends Controller
         if($album->status === 'live' && $request->status === 'longterm' && $album->remote_id && $album->venue_id) {
             $album->date_over = now();
             $album->remote_id = null; // Only de-associate if there is an associated remote
-            $album->venue_id = null;
         }
 
         // Update the album status
@@ -131,6 +130,25 @@ class AlbumController extends Controller
 
         // Save the album
         $album->save();
+
+        // Send email to all users connected to this album
+        if($request->status === 'longterm') {   // Only send email if status is longterm
+            $users = User::where('album_id', $album->id)->get();    // Get all users connected to this album
+
+            // Loop through each user and send an email
+            foreach ($users as $user) {
+                // Generate a token for the user
+                $salt = env('SALT');
+                $tokenString = $salt . $album->id . $user->id;
+                $token = hash('sha256', $tokenString);
+
+                // Generate the album access link
+                $albumUrl = route('album', ['albumId' => $album->id, 'userId' => $user->id, 'token' => $token]);
+
+                // Send an email to the user with the album access link
+                Mail::to($user->email)->send(new AlbumAccessMail($albumUrl, $token ,$user));
+            }
+        }
 
         return redirect()->route('home')->with('success', 'Album status updated successfully!');
     }
