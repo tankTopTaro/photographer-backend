@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\AlbumAccessMail;
 use App\Models\Album;
+use App\Models\Capture;
 use App\Models\Remote;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -66,9 +67,13 @@ class AlbumController extends Controller
         $isValid = $expectedToken === $token;
 
         if ($isValid) {
+            // Get all captures associated with the album
+            $captures = Capture::where('album_id', $album->id)->get();
+
             return view('album', [
                 'album' => $album,
                 'user' => $user,
+                'captures' => $captures,
             ]);
         } else {
             return redirect()->route('home')->with('error', 'Invalid token. Please try again.');

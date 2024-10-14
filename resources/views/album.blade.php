@@ -1,17 +1,21 @@
-<!-- resources/views/albums/show.blade.php -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Album Details</title>
+    <title>Album Captures</title>
 </head>
 <body>
-    <h1>Album Details</h1>
-    <p><strong>ID:</strong> {{ $album->id }}</p>
-    <p><strong>Remote ID:</strong> {{ $album->remote_id }}</p>
-    <p><strong>Venue ID:</strong> {{ $album->venue_id }}</p>
-    <p><strong>Status:</strong> {{ $album->status }}</p>
-    <p><strong>Date Added:</strong> {{ $album->date_add }}</p>
-    <p><strong>Date Over:</strong> {{ $album->date_over }}</p>
-    <p><strong>Date Updated:</strong> {{ $album->date_upd }}</p>
+    <h1>Album: {{ $album->id }} for {{ $user->name }}</h1>
+
+    <div>
+        <h2>Captured Images</h2>
+        @if ($captures->isEmpty())
+            <p>No captures available for this album.</p>
+        @else
+            @foreach ($captures as $capture)
+                <img src="{{ asset('storage/' . $capture->image) }}" alt="Capture Image" style="width: 200px; height: auto;">
+                <p>Captured at: {{ $capture->date_add }}</p>
+            @endforeach
+        @endif
+    </div>
 </body>
 </html>

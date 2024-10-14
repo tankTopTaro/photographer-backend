@@ -16,3 +16,4 @@ Route::post('/album-status', [AlbumController::class, 'update'])->name('album-st
 Route::get('/photographer/album/{albumId}/user/{userId}/{token}', [AlbumController::class, 'show'])->name('album');
 
 Route::post('/invite-user', [AlbumController::class, 'inviteUser'])->name('invite-user');
+
